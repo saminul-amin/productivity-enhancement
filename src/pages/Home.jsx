@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Crown, BarChart2, Users } from "lucide-react";
 
@@ -53,7 +52,7 @@ const Home = () => {
         </Link>
 
         <Link
-          to="/timeline"
+          to="/statistics"
           className="bg-gray-900 bg-gradient-to-b from-gray-800 hover:bg-gray-700 transition shadow-md rounded-2xl p-6 flex items-center gap-4"
         >
           <Users className="w-8 h-8 text-green-600" />
