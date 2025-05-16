@@ -192,7 +192,7 @@ const Statistics = () => {
       </div>
 
       {category === "Productivity VS Sleep" ? (
-        <MixBarChartComponent />
+        <MixBarChartComponent user={user} isMonthly={monthButton} week={week} />
       ) : !showData || showData.length === 0 ? (
         <NoData />
       ) : (
