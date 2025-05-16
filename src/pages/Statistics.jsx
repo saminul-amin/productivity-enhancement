@@ -16,7 +16,7 @@ import LineChartComponent from "../components/LineChartComponent";
 import BarChartComponent from "../components/BarChartComponent";
 
 const Statistics = () => {
-  const [category, setCategory] = useState("productivity");
+  const [category, setCategory] = useState("Productivity");
   const [user, setUser] = useState("Md. Saminul Amin");
   const [month, setMonth] = useState("May");
   const [week, setWeek] = useState("Current Week");
@@ -131,10 +131,20 @@ const Statistics = () => {
       </div>
 
       {/* Line Chart */}
-      <LineChartComponent user={user} week={week} />
+      <LineChartComponent
+        user={user}
+        week={week}
+        category={category}
+        isMonthly={monthButton}
+      />
 
       {/* Bar Chart */}
-      <BarChartComponent user={user} week={week} />
+      <BarChartComponent
+        user={user}
+        week={week}
+        category={category}
+        isMonthly={monthButton}
+      />
     </div>
   );
 };
