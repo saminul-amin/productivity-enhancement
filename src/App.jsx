@@ -33,3 +33,22 @@ function App() {
 }
 
 export default App
+
+
+// "Ahnaf Tahmid Rhythm": [
+//             {"month": "May", "date": "1", "day": "Thu", "score": 0},
+//             {"month": "May", "date": "2", "day": "Fri", "score": 2},
+//             {"month": "May", "date": "3", "day": "Sat", "score": 3},
+//             {"month": "May", "date": "4", "day": "Sun", "score": 2},
+//             {"month": "May", "date": "5", "day": "Mon", "score": 3.5},
+//             {"month": "May", "date": "6", "day": "Tue", "score": 6},
+//             {"month": "May", "date": "7", "day": "Wed", "score": 2},
+//             {"month": "May", "date": "8", "day": "Thu", "score": 2},
+//             {"month": "May", "date": "9", "day": "Fri", "score": 1},
+//             {"month": "May", "date": "10", "day": "Sat", "score": 2},
+//             {"month": "May", "date": "11", "day": "Sun", "score": 1},
+//             {"month": "May", "date": "12", "day": "Mon", "score": 1},
+//             {"month": "May", "date": "13", "day": "Tue", "score": 0.5},
+//             {"month": "May", "date": "14", "day": "Wed", "score": 1},
+//             {"month": "May", "date": "15", "day": "Thu", "score": 0}
+//         ],

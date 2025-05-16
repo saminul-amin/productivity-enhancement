@@ -1,34 +1,32 @@
-import { useState } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  BarChart,
-  Bar,
-  ResponsiveContainer,
-} from "recharts";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import LineChartComponent from "../components/LineChartComponent";
 import BarChartComponent from "../components/BarChartComponent";
+import MixBarChartComponent from "../components/MixBarChartComponent";
+import NoData from "../components/NoData";
 
 const Statistics = () => {
   const [category, setCategory] = useState("Productivity");
   const [user, setUser] = useState("Md. Saminul Amin");
   const [month, setMonth] = useState("May");
   const [week, setWeek] = useState("Current Week");
+
   const [weekButton, setWeekButton] = useState(true);
   const [monthButton, setMonthButton] = useState(false);
-  const navigate = useNavigate();
+
+  const [fetchedData, setFetchedData] = useState([]);
+  const [TempData, setTempData] = useState([]);
+  const [showData, setShowData] = useState([]);
+
+  const [barSize, setBarSize] = useState(50);
+  const [domain, setDomain] = useState(null);
 
   const categories = [
     "Productivity",
     "Early Masjid",
     "Islamic Studies",
     "Sleep Hour",
+    "Productivity VS Sleep",
   ];
   const users = [
     "Md. Saminul Amin",
@@ -45,6 +43,72 @@ const Statistics = () => {
   ];
   const months = ["January", "February", "March", "April", "May"];
   const weeks = ["Week before last week", "Last Week", "Current Week"];
+
+  let url;
+  if (category === "Productivity") {
+    url = "/productivity";
+  } else if (category === "Islamic Studies") {
+    url = "/islamic-studies";
+  } else if (category === "Early Masjid") {
+    url = "/early-masjid";
+  } else if (category === "Sleep Hour") {
+    url = "/sleep-hour";
+  }
+  url += ".json";
+  //   console.log(url);
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setFetchedData(data.allUserDummyData);
+        if (category === "Productivity") {
+          setDomain(10);
+        } else if (category === "Islamic Studies") {
+          setDomain(3);
+        } else if (category === "Early Masjid") {
+          setDomain(5);
+        } else {
+          setDomain(10);
+        }
+      })
+      .catch((err) => {
+        console.error("Error Fetching Data!");
+        setFetchedData([]);
+      });
+  }, [category]);
+
+  const userData = fetchedData?.[user] ?? [];
+
+  function groupByWeeks(data) {
+    const weeks = [];
+    for (let i = data.length; i >= 7; i -= 7) {
+      weeks.push(data.slice(i - 7, i));
+    }
+    return weeks;
+  }
+
+  const weeklyChunks = groupByWeeks(userData);
+  let weeklyData = [];
+  if (week === "Current Week") {
+    weeklyData = weeklyChunks[0];
+  } else if (week === "Last Week") {
+    weeklyData = weeklyChunks[1];
+  } else {
+    weeklyData = weeklyChunks[2];
+  }
+
+  let monthlyData = userData.filter((entry) => entry.month === "May");
+
+  useEffect(() => {
+    const newData = monthButton ? monthlyData : weeklyData;
+    if (JSON.stringify(newData) !== JSON.stringify(showData)) {
+      setShowData(newData);
+    }
+    if (monthButton) {
+      setBarSize(30);
+    } else setBarSize(50);
+  }, [monthButton, weeklyData, monthlyData, showData]);
 
   return (
     <div className="p-6 text-gray-200 min-h-screen bg-gray-900">
@@ -96,10 +160,7 @@ const Statistics = () => {
               ))}
         </select>
 
-        <button
-          onClick={() => navigate("/compare")}
-          className="bg-pink-700 hover:bg-pink-600 text-white font-semibold rounded-lg px-4 py-2 cursor-pointer border-2 border-gray-900 hover:border-pink-600 hover:font-bold transition"
-        >
+        <button className="bg-pink-700 hover:bg-pink-600 text-white font-semibold rounded-lg px-4 py-2 cursor-pointer border-2 border-gray-900 hover:border-pink-600 hover:font-bold transition">
           Compare
         </button>
       </div>
@@ -130,65 +191,25 @@ const Statistics = () => {
         </button>
       </div>
 
-      {/* Line Chart */}
-      <LineChartComponent
-        user={user}
-        week={week}
-        category={category}
-        isMonthly={monthButton}
-      />
+      {category === "Productivity VS Sleep" ? (
+        <MixBarChartComponent />
+      ) : !showData || showData.length === 0 ? (
+        <NoData />
+      ) : (
+        <>
+          {/* Line Chart */}
+          <LineChartComponent data={showData} domain={domain} />
 
-      {/* Bar Chart */}
-      <BarChartComponent
-        user={user}
-        week={week}
-        category={category}
-        isMonthly={monthButton}
-      />
+          {/* Bar Chart */}
+          <BarChartComponent
+            data={showData}
+            domain={domain}
+            barSize={barSize}
+          />
+        </>
+      )}
     </div>
   );
 };
 
 export default Statistics;
-
-{
-  /* <div className="bg-gray-800 p-4 rounded-xl shadow mb-6 max-w-4xl mx-auto">
-        <h3 className="text-lg font-semibold mb-2">Daily Line Chart</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={dummyData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#555" />
-            <XAxis dataKey="day" stroke="#ccc" />
-            <YAxis stroke="#ccc" domain={[0, 10]} />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="score"
-              stroke="#f472b6"
-              strokeWidth={4}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div> */
-}
-
-{
-  /* <div className="bg-gray-800 p-4 rounded-xl shadow max-w-4xl mx-auto">
-        <h3 className="text-lg font-semibold mb-2">Daily Bar Chart</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={dummyData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#555" />
-            <XAxis dataKey="day" stroke="#ccc" />
-            <YAxis stroke="#ccc" domain={[0, 10]} />
-            <Tooltip />
-            <Legend />
-            <Bar
-              dataKey="score"
-              fill="#f472b6"
-              barSize={50}
-              radius={[4, 4, 0, 0]}
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </div> */
-}
