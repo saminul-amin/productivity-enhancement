@@ -4,6 +4,8 @@ import LineChartComponent from "../components/LineChartComponent";
 import BarChartComponent from "../components/BarChartComponent";
 import MixBarChartComponent from "../components/MixBarChartComponent";
 import NoData from "../components/NoData";
+import Loading from "../components/Loading";
+import ChartSwitcher from "../components/ChartSwitcher";
 
 const Statistics = () => {
   const [category, setCategory] = useState("Productivity");
@@ -11,11 +13,11 @@ const Statistics = () => {
   const [month, setMonth] = useState("May");
   const [week, setWeek] = useState("Current Week");
 
+  const [isLoading, setIsLoading] = useState(true);
   const [weekButton, setWeekButton] = useState(true);
   const [monthButton, setMonthButton] = useState(false);
 
   const [fetchedData, setFetchedData] = useState([]);
-  const [TempData, setTempData] = useState([]);
   const [showData, setShowData] = useState([]);
 
   const [barSize, setBarSize] = useState(50);
@@ -55,9 +57,10 @@ const Statistics = () => {
     url = "/sleep-hour";
   }
   url += ".json";
-  //   console.log(url);
 
   useEffect(() => {
+    setIsLoading(true);
+
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -75,10 +78,14 @@ const Statistics = () => {
       .catch((err) => {
         console.error("Error Fetching Data!");
         setFetchedData([]);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [category]);
 
   const userData = fetchedData?.[user] ?? [];
+  
 
   function groupByWeeks(data) {
     const weeks = [];
@@ -88,32 +95,40 @@ const Statistics = () => {
     return weeks;
   }
 
-  const weeklyChunks = groupByWeeks(userData);
-  let weeklyData = [];
-  if (week === "Current Week") {
-    weeklyData = weeklyChunks[0];
-  } else if (week === "Last Week") {
-    weeklyData = weeklyChunks[1];
-  } else {
-    weeklyData = weeklyChunks[2];
-  }
-
-  let monthlyData = userData.filter((entry) => entry.month === "May");
-
   useEffect(() => {
-    const newData = monthButton ? monthlyData : weeklyData;
+    if (!userData || userData.length === 0) {
+      setShowData([]);
+      return;
+    }
+
+    const weeklyChunks = groupByWeeks(userData);
+
+    let newWeeklyData = [];
+    if (week === "Current Week") {
+      newWeeklyData = weeklyChunks[0] || [];
+    } else if (week === "Last Week") {
+      newWeeklyData = weeklyChunks[1] || [];
+    } else {
+      newWeeklyData = weeklyChunks[2] || [];
+    }
+
+    const newMonthlyData = userData.filter((entry) => entry.month === month);
+
+    const newData = monthButton ? newMonthlyData : newWeeklyData;
+
     if (JSON.stringify(newData) !== JSON.stringify(showData)) {
       setShowData(newData);
     }
-    if (monthButton) {
-      setBarSize(30);
-    } else setBarSize(50);
-  }, [monthButton, weeklyData, monthlyData, showData]);
+
+    setBarSize(monthButton ? 30 : 50);
+  }, [monthButton, week, month, userData, showData]);
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="p-6 text-gray-200 min-h-screen bg-gray-900">
       <h2 className="text-4xl font-bold mb-12 text-center">Total Statistics</h2>
-
       <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 mb-6 max-w-5xl mx-auto">
         <select
           value={category}
@@ -164,7 +179,6 @@ const Statistics = () => {
           Compare
         </button>
       </div>
-
       {/* Weekly / Monthly Toggle */}
       <div className="mb-16 flex gap-4 justify-center">
         <button
@@ -190,24 +204,16 @@ const Statistics = () => {
           Monthly
         </button>
       </div>
-
-      {category === "Productivity VS Sleep" ? (
-        <MixBarChartComponent user={user} isMonthly={monthButton} week={week} />
-      ) : !showData || showData.length === 0 ? (
-        <NoData />
-      ) : (
-        <>
-          {/* Line Chart */}
-          <LineChartComponent data={showData} domain={domain} />
-
-          {/* Bar Chart */}
-          <BarChartComponent
-            data={showData}
-            domain={domain}
-            barSize={barSize}
-          />
-        </>
-      )}
+      <ChartSwitcher
+        isLoading={isLoading}
+        category={category}
+        showData={showData}
+        user={user}
+        domain={domain}
+        barSize={barSize}
+        isMonthly={monthButton}
+        week={week}
+      />
     </div>
   );
 };
