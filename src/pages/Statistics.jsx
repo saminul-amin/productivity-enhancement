@@ -1,11 +1,56 @@
 import { useEffect, useState } from "react";
 
-import LineChartComponent from "../components/LineChartComponent";
-import BarChartComponent from "../components/BarChartComponent";
-import MixBarChartComponent from "../components/MixBarChartComponent";
-import NoData from "../components/NoData";
 import Loading from "../components/Loading";
 import ChartSwitcher from "../components/ChartSwitcher";
+import TopScorerCard from "../components/TopScorerCard";
+
+function groupByWeeks(data) {
+  const weeks = [];
+  for (let i = data.length; i >= 7; i -= 7) {
+    weeks.push(data.slice(i - 7, i));
+  }
+  return weeks;
+}
+
+const getTopScorer = ({ data, category, view, week, month }) => {
+  const getScoreArray = (userEntries) => {
+    if (!Array.isArray(userEntries)) return [];
+
+    if (view === "weekly") {
+      const weeks = groupByWeeks(userEntries);
+      const index = week === "Current Week" ? 0 : week === "Last Week" ? 1 : 2;
+      return weeks[index] || [];
+    }
+
+    if (view === "monthly") {
+      return userEntries.filter((entry) => entry.month === month);
+    }
+
+    return [];
+  };
+
+  const result = [];
+
+  for (const user in data) {
+    const rawEntries = data[user] || [];
+    const filtered = getScoreArray(rawEntries);
+
+    if (!filtered.length) continue;
+
+    const total = filtered.reduce((sum, e) => sum + (e.score || 0), 0);
+    const avg = (total / filtered.length).toFixed(2);
+
+    result.push({
+      name: user,
+      total,
+      avg,
+      count: filtered.length,
+    });
+  }
+
+  result.sort((a, b) => b.total - a.total);
+  return result[0] || null;
+};
 
 const Statistics = () => {
   const [category, setCategory] = useState("Productivity");
@@ -84,16 +129,17 @@ const Statistics = () => {
       });
   }, [category]);
 
-  const userData = fetchedData?.[user] ?? [];
-  
+  // console.log(fetchedData[user])
 
-  function groupByWeeks(data) {
-    const weeks = [];
-    for (let i = data.length; i >= 7; i -= 7) {
-      weeks.push(data.slice(i - 7, i));
-    }
-    return weeks;
-  }
+  const userData = fetchedData?.[user] ?? [];
+  const topScorer = getTopScorer({
+    data: fetchedData,
+    category,
+    view: monthButton ? "monthly" : "weekly",
+    week,
+    month,
+  });
+  console.log(topScorer);
 
   useEffect(() => {
     if (!userData || userData.length === 0) {
@@ -204,6 +250,8 @@ const Statistics = () => {
           Monthly
         </button>
       </div>
+
+      {topScorer && <TopScorerCard scorer={topScorer} />}
       <ChartSwitcher
         isLoading={isLoading}
         category={category}
