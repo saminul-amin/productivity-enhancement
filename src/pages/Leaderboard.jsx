@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Contributors from "../components/Contributors";
 import Loading from "../components/Loading";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Tabulation from "./Tabulation";
 
 const generateLeaderboard = ({ data, view, week, month, category }) => {
   const getScoreArray = (userEntries) => {
@@ -82,6 +83,7 @@ const Leaderboard = () => {
   const [week, setWeek] = useState("Current Week");
   const [month, setMonth] = useState("May");
   const [celebrate, setCelebrate] = useState(false);
+  const [showTable, setShowTable] = useState(false);
 
   let url;
   if (category === "Productivity") {
@@ -228,6 +230,50 @@ const Leaderboard = () => {
           🎉 Celebrate
         </button>
       </div>
+
+      <div className="text-center mt-24">
+        <button
+          onClick={() => setShowTable(!showTable)}
+          className="bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2 rounded-full text-sm font-medium cursor-pointer flex items-center gap-2 mx-auto"
+        >
+          <span>📋 View Full Tabulation</span>
+          <span
+            className={`transition-transform duration-300 ${
+              showTable ? "rotate-180" : ""
+            }`}
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {showTable && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.5 }}
+            className="mt-8"
+          >
+            <Tabulation data={leaderboard} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <Contributors />
     </div>
   );

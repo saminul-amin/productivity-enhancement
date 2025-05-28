@@ -48,7 +48,7 @@ const contributorRoles = [
 
 const Contributors = () => {
   return (
-    <div className="min-h-screen bg-gray-900 text-white py-10 px-4 mt-24">
+    <div className="min-h-screen bg-gray-900 text-white py-10 px-4 mt-12">
       <h1 className="text-3xl font-bold text-center mb-8 text-pink-400">
         Contributors & Roles
       </h1>

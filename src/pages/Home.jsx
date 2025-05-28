@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Crown, BarChart2, Users } from "lucide-react";
 import { useState } from "react";
 import UnderDevModal from "../components/UnderDevModal";
+import Noticeboard from "../components/Noticeboard";
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
@@ -102,6 +103,7 @@ const Home = () => {
           </div>
         </button>
       </section>
+      <Noticeboard />
 
       {/* Footer */}
       <footer className="mt-16 text-center text-sm text-gray-400">
