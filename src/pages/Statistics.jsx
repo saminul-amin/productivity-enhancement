@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import ChartSwitcher from "../components/ChartSwitcher";
 import TopScorerCard from "../components/TopScorerCard";
+import PersonalStatCard from "../components/PersonalStatCard";
 
 function groupByWeeks(data) {
   const weeks = [];
@@ -48,8 +49,31 @@ const getTopScorer = ({ data, category, view, week, month }) => {
     });
   }
 
-  result.sort((a, b) => b.total - a.total);
+  if (category.toLowerCase() === "sleep hour") {
+    result.sort((a, b) => a.total - b.total); // lower wins
+  } else {
+    result.sort((a, b) => b.total - a.total); // higher wins
+  }
   return result[0] || null;
+};
+
+const getPersonalStats = ({ userEntries, view, week, month }) => {
+  if (!userEntries) return { total: 0, avg: 0 };
+
+  let filtered = [];
+
+  if (view === "weekly") {
+    const weeks = groupByWeeks(userEntries);
+    const index = week === "Current Week" ? 0 : week === "Last Week" ? 1 : 2;
+    filtered = weeks[index] || [];
+  } else {
+    filtered = userEntries.filter((entry) => entry.month === month);
+  }
+
+  const total = filtered.reduce((sum, e) => sum + e.score, 0);
+  const avg = filtered.length ? (total / filtered.length).toFixed(2) : 0;
+
+  return { total, avg };
 };
 
 const Statistics = () => {
@@ -111,13 +135,13 @@ const Statistics = () => {
       .then((data) => {
         setFetchedData(data.allUserDummyData);
         if (category === "Productivity") {
-          setDomain(10);
+          setDomain(12);
         } else if (category === "Islamic Studies") {
           setDomain(3);
         } else if (category === "Early Masjid") {
           setDomain(5);
         } else {
-          setDomain(10);
+          setDomain(12);
         }
       })
       .catch((err) => {
@@ -140,6 +164,12 @@ const Statistics = () => {
     month,
   });
   console.log(topScorer);
+  const personalStats = getPersonalStats({
+    userEntries: userData,
+    view: monthButton ? "monthly" : "weekly",
+    week,
+    month,
+  });
 
   useEffect(() => {
     if (!userData || userData.length === 0) {
@@ -252,6 +282,11 @@ const Statistics = () => {
       </div>
 
       {topScorer && <TopScorerCard scorer={topScorer} />}
+      <PersonalStatCard
+        total={personalStats.total}
+        avg={personalStats.avg}
+        category={category}
+      />
       <ChartSwitcher
         isLoading={isLoading}
         category={category}

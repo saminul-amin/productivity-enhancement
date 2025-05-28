@@ -15,7 +15,18 @@
             {"month": "May", "date": "12", "day": "Mon", "score": 5},
             {"month": "May", "date": "13", "day": "Tue", "score": 8},
             {"month": "May", "date": "14", "day": "Wed", "score": 4},
-            {"month": "May", "date": "15", "day": "Thu", "score": 0}
+            {"month": "May", "date": "15", "day": "Thu", "score": 9},
+            {"month": "May", "date": "16", "day": "Fri", "score": 12},
+            {"month": "May", "date": "17", "day": "Sat", "score": 7},
+            {"month": "May", "date": "18", "day": "Sun", "score": 5},
+            {"month": "May", "date": "19", "day": "Mon", "score": 6},
+            {"month": "May", "date": "20", "day": "Tue", "score": 8},
+            {"month": "May", "date": "21", "day": "Wed", "score": 5},
+            {"month": "May", "date": "22", "day": "Thu", "score": 4},
+            {"month": "May", "date": "23", "day": "Fri", "score": 5},
+            {"month": "May", "date": "24", "day": "Sat", "score": 2},
+            {"month": "May", "date": "25", "day": "Sun", "score": 5},
+            {"month": "May", "date": "26", "day": "Mon", "score": 6}
         ],
         "Wazih Abdullah": [
             {"month": "May", "date": "1", "day": "Thu", "score": 0},
@@ -32,7 +43,18 @@
             {"month": "May", "date": "12", "day": "Mon", "score": 3},
             {"month": "May", "date": "13", "day": "Tue", "score": 3.5},
             {"month": "May", "date": "14", "day": "Wed", "score": 4},
-            {"month": "May", "date": "15", "day": "Thu", "score": 0}
+            {"month": "May", "date": "15", "day": "Thu", "score": 5},
+            {"month": "May", "date": "16", "day": "Fri", "score": 3},
+            {"month": "May", "date": "17", "day": "Sat", "score": 5},
+            {"month": "May", "date": "18", "day": "Sun", "score": 3},
+            {"month": "May", "date": "19", "day": "Mon", "score": 4},
+            {"month": "May", "date": "20", "day": "Tue", "score": 4},
+            {"month": "May", "date": "21", "day": "Wed", "score": 4},
+            {"month": "May", "date": "22", "day": "Thu", "score": 5},
+            {"month": "May", "date": "23", "day": "Fri", "score": 3},
+            {"month": "May", "date": "24", "day": "Sat", "score": 3},
+            {"month": "May", "date": "25", "day": "Sun", "score": 6},
+            {"month": "May", "date": "26", "day": "Mon", "score": 6}
         ],
         "Towheduzzaman": [
             {"month": "May", "date": "1", "day": "Thu", "score": 2},
@@ -49,7 +71,18 @@
             {"month": "May", "date": "12", "day": "Mon", "score": 9},
             {"month": "May", "date": "13", "day": "Tue", "score": 0},
             {"month": "May", "date": "14", "day": "Wed", "score": 10},
-            {"month": "May", "date": "15", "day": "Thu", "score": 0}
+            {"month": "May", "date": "15", "day": "Thu", "score": 5},
+            {"month": "May", "date": "16", "day": "Fri", "score": 9},
+            {"month": "May", "date": "17", "day": "Sat", "score": 10},
+            {"month": "May", "date": "18", "day": "Sun", "score": 0},
+            {"month": "May", "date": "19", "day": "Mon", "score": 8},
+            {"month": "May", "date": "20", "day": "Tue", "score": 7},
+            {"month": "May", "date": "21", "day": "Wed", "score": 9},
+            {"month": "May", "date": "22", "day": "Thu", "score": 0},
+            {"month": "May", "date": "23", "day": "Fri", "score": 5},
+            {"month": "May", "date": "24", "day": "Sat", "score": 4},
+            {"month": "May", "date": "25", "day": "Sun", "score": 0},
+            {"month": "May", "date": "26", "day": "Mon", "score": 0}
         ],
         "Sahabuddin": [
             {"month": "May", "date": "1", "day": "Thu", "score": 10},
@@ -66,7 +99,18 @@
             {"month": "May", "date": "12", "day": "Mon", "score": 9},
             {"month": "May", "date": "13", "day": "Tue", "score": 7},
             {"month": "May", "date": "14", "day": "Wed", "score": 10},
-            {"month": "May", "date": "15", "day": "Thu", "score": 0}
+            {"month": "May", "date": "15", "day": "Thu", "score": 10},
+            {"month": "May", "date": "16", "day": "Fri", "score": 10},
+            {"month": "May", "date": "17", "day": "Sat", "score": 2},
+            {"month": "May", "date": "18", "day": "Sun", "score": 7},
+            {"month": "May", "date": "19", "day": "Mon", "score": 9},
+            {"month": "May", "date": "20", "day": "Tue", "score": 9},
+            {"month": "May", "date": "21", "day": "Wed", "score": 10},
+            {"month": "May", "date": "22", "day": "Thu", "score": 10},
+            {"month": "May", "date": "23", "day": "Fri", "score": 9},
+            {"month": "May", "date": "24", "day": "Sat", "score": 10},
+            {"month": "May", "date": "25", "day": "Sun", "score": 10},
+            {"month": "May", "date": "26", "day": "Mon", "score": 9}
         ],
         "Ahnaf Tahmid Rhythm": [
             {"month": "May", "date": "1", "day": "Thu", "score": 0},
@@ -83,7 +127,18 @@
             {"month": "May", "date": "12", "day": "Mon", "score": 1},
             {"month": "May", "date": "13", "day": "Tue", "score": 0.5},
             {"month": "May", "date": "14", "day": "Wed", "score": 1},
-            {"month": "May", "date": "15", "day": "Thu", "score": 0}
+            {"month": "May", "date": "15", "day": "Thu", "score": 1},
+            {"month": "May", "date": "16", "day": "Fri", "score": 0},
+            {"month": "May", "date": "17", "day": "Sat", "score": 0},
+            {"month": "May", "date": "18", "day": "Sun", "score": 0},
+            {"month": "May", "date": "19", "day": "Mon", "score": 0},
+            {"month": "May", "date": "20", "day": "Tue", "score": 0},
+            {"month": "May", "date": "21", "day": "Wed", "score": 0},
+            {"month": "May", "date": "22", "day": "Thu", "score": 0},
+            {"month": "May", "date": "23", "day": "Fri", "score": 0},
+            {"month": "May", "date": "24", "day": "Sat", "score": 1},
+            {"month": "May", "date": "25", "day": "Sun", "score": 0},
+            {"month": "May", "date": "26", "day": "Mon", "score": 0}
         ],
         "Thowfiqur Bari Chowdhury": [
             {"month": "May", "date": "1", "day": "Thu", "score": 6},
@@ -100,7 +155,18 @@
             {"month": "May", "date": "12", "day": "Mon", "score": 0},
             {"month": "May", "date": "13", "day": "Tue", "score": 0},
             {"month": "May", "date": "14", "day": "Wed", "score": 0},
-            {"month": "May", "date": "15", "day": "Thu", "score": 0}
+            {"month": "May", "date": "15", "day": "Thu", "score": 7},
+            {"month": "May", "date": "16", "day": "Fri", "score": 0},
+            {"month": "May", "date": "17", "day": "Sat", "score": 2},
+            {"month": "May", "date": "18", "day": "Sun", "score": 2},
+            {"month": "May", "date": "19", "day": "Mon", "score": 3},
+            {"month": "May", "date": "20", "day": "Tue", "score": 8},
+            {"month": "May", "date": "21", "day": "Wed", "score": 0},
+            {"month": "May", "date": "22", "day": "Thu", "score": 0},
+            {"month": "May", "date": "23", "day": "Fri", "score": 0},
+            {"month": "May", "date": "24", "day": "Sat", "score": 3},
+            {"month": "May", "date": "25", "day": "Sun", "score": 0},
+            {"month": "May", "date": "26", "day": "Mon", "score": 9}
         ],
         "Md. Shakibul Alam": [
             {"month": "May", "date": "1", "day": "Thu", "score": 3},
@@ -117,7 +183,18 @@
             {"month": "May", "date": "12", "day": "Mon", "score": 1},
             {"month": "May", "date": "13", "day": "Tue", "score": 1},
             {"month": "May", "date": "14", "day": "Wed", "score": 1},
-            {"month": "May", "date": "15", "day": "Thu", "score": 0}
+            {"month": "May", "date": "15", "day": "Thu", "score": 0},
+            {"month": "May", "date": "16", "day": "Fri", "score": 0},
+            {"month": "May", "date": "17", "day": "Sat", "score": 0},
+            {"month": "May", "date": "18", "day": "Sun", "score": 0},
+            {"month": "May", "date": "19", "day": "Mon", "score": 0},
+            {"month": "May", "date": "20", "day": "Tue", "score": 0},
+            {"month": "May", "date": "21", "day": "Wed", "score": 0},
+            {"month": "May", "date": "22", "day": "Thu", "score": 0},
+            {"month": "May", "date": "23", "day": "Fri", "score": 0},
+            {"month": "May", "date": "24", "day": "Sat", "score": 0},
+            {"month": "May", "date": "25", "day": "Sun", "score": 2},
+            {"month": "May", "date": "26", "day": "Mon", "score": 3}
         ],
         "Al Fuad Nur": [
             {"month": "May", "date": "1", "day": "Thu", "score": 7},
@@ -134,7 +211,18 @@
             {"month": "May", "date": "12", "day": "Mon", "score": 0},
             {"month": "May", "date": "13", "day": "Tue", "score": 0},
             {"month": "May", "date": "14", "day": "Wed", "score": 0},
-            {"month": "May", "date": "15", "day": "Thu", "score": 0}
+            {"month": "May", "date": "15", "day": "Thu", "score": 1},
+            {"month": "May", "date": "16", "day": "Fri", "score": 0},
+            {"month": "May", "date": "17", "day": "Sat", "score": 1},
+            {"month": "May", "date": "18", "day": "Sun", "score": 0},
+            {"month": "May", "date": "19", "day": "Mon", "score": 0},
+            {"month": "May", "date": "20", "day": "Tue", "score": 0},
+            {"month": "May", "date": "21", "day": "Wed", "score": 0},
+            {"month": "May", "date": "22", "day": "Thu", "score": 0},
+            {"month": "May", "date": "23", "day": "Fri", "score": 0},
+            {"month": "May", "date": "24", "day": "Sat", "score": 0},
+            {"month": "May", "date": "25", "day": "Sun", "score": 0},
+            {"month": "May", "date": "26", "day": "Mon", "score": 0}
         ],
         "Siam Ahmed": [
             {"month": "May", "date": "1", "day": "Thu", "score": 2},
@@ -151,7 +239,18 @@
             {"month": "May", "date": "12", "day": "Mon", "score": 0},
             {"month": "May", "date": "13", "day": "Tue", "score": 2},
             {"month": "May", "date": "14", "day": "Wed", "score": 2},
-            {"month": "May", "date": "15", "day": "Thu", "score": 0}
+            {"month": "May", "date": "15", "day": "Thu", "score": 0},
+            {"month": "May", "date": "16", "day": "Fri", "score": 0},
+            {"month": "May", "date": "17", "day": "Sat", "score": 0},
+            {"month": "May", "date": "18", "day": "Sun", "score": 2},
+            {"month": "May", "date": "19", "day": "Mon", "score": 2},
+            {"month": "May", "date": "20", "day": "Tue", "score": 0},
+            {"month": "May", "date": "21", "day": "Wed", "score": 2},
+            {"month": "May", "date": "22", "day": "Thu", "score": 0},
+            {"month": "May", "date": "23", "day": "Fri", "score": 0},
+            {"month": "May", "date": "24", "day": "Sat", "score": 0},
+            {"month": "May", "date": "25", "day": "Sun", "score": 1},
+            {"month": "May", "date": "26", "day": "Mon", "score": 2}
         ],
         "Zubayer Hossain Uday": [
             {"month": "May", "date": "1", "day": "Thu", "score": 0},
@@ -168,7 +267,18 @@
             {"month": "May", "date": "12", "day": "Mon", "score": 6},
             {"month": "May", "date": "13", "day": "Tue", "score": 4},
             {"month": "May", "date": "14", "day": "Wed", "score": 0.5},
-            {"month": "May", "date": "15", "day": "Thu", "score": 0}
+            {"month": "May", "date": "15", "day": "Thu", "score": 1},
+            {"month": "May", "date": "16", "day": "Fri", "score": 2},
+            {"month": "May", "date": "17", "day": "Sat", "score": 2},
+            {"month": "May", "date": "18", "day": "Sun", "score": 5},
+            {"month": "May", "date": "19", "day": "Mon", "score": 4},
+            {"month": "May", "date": "20", "day": "Tue", "score": 4},
+            {"month": "May", "date": "21", "day": "Wed", "score": 5},
+            {"month": "May", "date": "22", "day": "Thu", "score": 3},
+            {"month": "May", "date": "23", "day": "Fri", "score": 3},
+            {"month": "May", "date": "24", "day": "Sat", "score": 0},
+            {"month": "May", "date": "25", "day": "Sun", "score": 0.5},
+            {"month": "May", "date": "26", "day": "Mon", "score": 5}
         ],
         "Masum Billah": [
             {"month": "May", "date": "1", "day": "Thu", "score": 0},
@@ -185,7 +295,18 @@
             {"month": "May", "date": "12", "day": "Mon", "score": 4},
             {"month": "May", "date": "13", "day": "Tue", "score": 3},
             {"month": "May", "date": "14", "day": "Wed", "score": 5},
-            {"month": "May", "date": "15", "day": "Thu", "score": 0}
+            {"month": "May", "date": "15", "day": "Thu", "score": 3},
+            {"month": "May", "date": "16", "day": "Fri", "score": 4},
+            {"month": "May", "date": "17", "day": "Sat", "score": 4},
+            {"month": "May", "date": "18", "day": "Sun", "score": 0},
+            {"month": "May", "date": "19", "day": "Mon", "score": 0},
+            {"month": "May", "date": "20", "day": "Tue", "score": 4},
+            {"month": "May", "date": "21", "day": "Wed", "score": 4},
+            {"month": "May", "date": "22", "day": "Thu", "score": 7},
+            {"month": "May", "date": "23", "day": "Fri", "score": 3},
+            {"month": "May", "date": "24", "day": "Sat", "score": 4},
+            {"month": "May", "date": "25", "day": "Sun", "score": 5},
+            {"month": "May", "date": "26", "day": "Mon", "score": 0.5}
         ]
     }
 }
