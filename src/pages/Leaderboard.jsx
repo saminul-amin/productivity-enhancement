@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import { motion } from "framer-motion";
+import Contributors from "../components/Contributors";
+import Loading from "../components/Loading";
+import { Link } from "react-router-dom";
 
 const generateLeaderboard = ({ data, view, week, month, category }) => {
   const getScoreArray = (userEntries) => {
@@ -65,11 +68,11 @@ const groupByWeeks = (entries) => {
 
 const crownIcons = ["👑", "🥈", "🥉"];
 const profileImages = {
-  "Md. Saminul Amin": "/leaders/samin.jpg",
-  "Wazih Abdullah": "/leaders/wazih.jpg",
-  Towheduzzaman: "/sahab.jpg",
-  Sahabuddin: "/leaders/sahab.jpg",
-  "Thowfiqur Bari Chowdhury": "/leaders/thowfiq.jpg",
+  "Md. Saminul Amin": "/members/samin.jpg",
+  "Wazih Abdullah": "/members/wazih.jpg",
+  Towheduzzaman: "/members/sahab.jpg",
+  Sahabuddin: "/members/sahab.jpg",
+  "Thowfiqur Bari Chowdhury": "/members/thowfiq.jpg",
 };
 
 const Leaderboard = () => {
@@ -80,13 +83,25 @@ const Leaderboard = () => {
   const [month, setMonth] = useState("May");
   const [celebrate, setCelebrate] = useState(false);
 
+  let url;
+  if (category === "Productivity") {
+    url = "/productivity";
+  } else if (category === "Islamic Studies") {
+    url = "/islamic-studies";
+  } else if (category === "Early Masjid") {
+    url = "/early-masjid";
+  } else if (category === "Sleep Hour") {
+    url = "/sleep-hour";
+  }
+  url += ".json";
+
   useEffect(() => {
-    fetch("/productivity.json")
+    fetch(url)
       .then((res) => res.json())
       .then((data) => {
         setUserData(data.allUserDummyData);
       });
-  }, []);
+  }, [category]);
 
   const leaderboard = userData
     ? generateLeaderboard({
@@ -106,15 +121,23 @@ const Leaderboard = () => {
     "bg-amber-700 text-white", // 🥉 Bronze
   ];
 
+  if (!userData) {
+    return (
+      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gray-900 text-white py-10 px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gray-900 text-white mt-12 py-10 px-4 relative overflow-hidden">
       {celebrate && <Confetti recycle={false} numberOfPieces={500} />}
 
-      <h1 className="text-3xl font-bold text-center mb-8 text-pink-400">
+      <h1 className="text-4xl font-bold text-center mb-8 text-pink-400">
         Leaderboard
       </h1>
 
-      <div className="flex flex-wrap gap-4 justify-center mb-6">
+      <div className="flex flex-wrap gap-4 justify-center my-12">
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
@@ -122,6 +145,7 @@ const Leaderboard = () => {
         >
           <option>Productivity</option>
           <option>Islamic Studies</option>
+          <option>Early Masjid</option>
           <option>Sleep Hour</option>
         </select>
 
@@ -204,6 +228,7 @@ const Leaderboard = () => {
           🎉 Celebrate
         </button>
       </div>
+      <Contributors />
     </div>
   );
 };

@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import { Crown, BarChart2, Users } from "lucide-react";
+import { useState } from "react";
+import UnderDevModal from "../components/UnderDevModal";
 
 const Home = () => {
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <main className="p-6 md:px-12 md:pt-12">
+    <main className="p-6 md:px-12 md:pt-12 mt-12">
       {/* Hero Section */}
       <section className="max-w-4xl mx-auto text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-300 mb-4">
@@ -65,42 +69,45 @@ const Home = () => {
         </Link>
 
         {/* Hall of Shame Card */}
-        <Link
-          to="/hall-of-shame"
-          className="bg-gray-900 bg-gradient-to-b from-gray-800 hover:bg-gray-700 transition shadow-md rounded-2xl p-6 flex items-center gap-4"
+        <button
+          // to="/hall-of-shame"
+          onClick={() => setShowModal(true)}
+          className="bg-gray-900 bg-gradient-to-b from-gray-800 hover:bg-gray-700 transition shadow-md rounded-2xl p-6 flex items-center gap-4 cursor-pointer"
         >
           <div className="w-8 h-8 bg-gray-800 text-red-600 text-2xl rounded-full flex items-center justify-center">
             💩
           </div>
           <div>
-            <h4 className="text-lg font-bold text-gray-300">Hall of Shame</h4>
+            <h4 className="text-lg text-left font-bold text-gray-300">Hall of Shame</h4>
             <p className="text-gray-400 text-sm">
               See the least active weeks (for fun & reflection)
             </p>
           </div>
-        </Link>
+        </button>
 
         {/* Donate Card */}
-        <Link
-          to="/donate"
-          className="bg-gray-900 bg-gradient-to-b from-gray-800 hover:bg-gray-700 transition shadow-md rounded-2xl p-6 flex items-center gap-4"
+        <button
+          // to="/donate"
+          onClick={() => setShowModal(true)}
+          className="bg-gray-900 bg-gradient-to-b from-gray-800 hover:bg-gray-700 transition shadow-md rounded-2xl p-6 flex items-center gap-4 cursor-pointer"
         >
           <div className="w-8 h-8 bg-gray-800 text-pink-700 text-3xl rounded-full flex items-center justify-center">
             💖
           </div>
           <div>
-            <h4 className="text-lg font-bold text-gray-300">Donate</h4>
+            <h4 className="text-lg text-left font-bold text-gray-300">Donate</h4>
             <p className="text-gray-400 text-sm">
               Support our mission to boost productivity
             </p>
           </div>
-        </Link>
+        </button>
       </section>
 
       {/* Footer */}
       <footer className="mt-16 text-center text-sm text-gray-400">
         Made with ☕ by the Community
       </footer>
+      <UnderDevModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </main>
   );
 };

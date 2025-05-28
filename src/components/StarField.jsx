@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
+import Navbar from "./NavBar";
 
 export default function StarField() {
   const containerRef = useRef(null);
@@ -31,6 +32,7 @@ export default function StarField() {
       {/* <h1 className="absolute text-white text-4xl font-bold top-10 left-10 z-10">
         Moving Stars ✨
       </h1> */}
+      <Navbar />
       <Outlet />
       <style>{`
         .star {

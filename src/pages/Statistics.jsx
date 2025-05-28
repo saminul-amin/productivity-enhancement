@@ -153,8 +153,6 @@ const Statistics = () => {
       });
   }, [category]);
 
-  // console.log(fetchedData[user])
-
   const userData = fetchedData?.[user] ?? [];
   const topScorer = getTopScorer({
     data: fetchedData,
@@ -203,7 +201,7 @@ const Statistics = () => {
   }
 
   return (
-    <div className="p-6 text-gray-200 min-h-screen bg-gray-900">
+    <div className="p-6 mt-16 text-gray-200 min-h-screen bg-gray-900">
       <h2 className="text-4xl font-bold mb-12 text-center">Total Statistics</h2>
       <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 mb-6 max-w-5xl mx-auto">
         <select
