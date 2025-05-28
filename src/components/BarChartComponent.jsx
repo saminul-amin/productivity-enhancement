@@ -9,7 +9,12 @@ import {
   YAxis,
 } from "recharts";
 
-export default function BarChartComponent({ data, barSize, domain }) {
+export default function BarChartComponent({
+  data,
+  barSize,
+  domain,
+  isMonthly,
+}) {
   return (
     <div>
       <div className="bg-gray-800 p-4 rounded-xl shadow max-w-4xl mx-auto">
@@ -19,7 +24,7 @@ export default function BarChartComponent({ data, barSize, domain }) {
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="#555" />
-            <XAxis dataKey="day" stroke="#ccc" />
+            <XAxis dataKey={isMonthly ? "date" : "day"} stroke="#ccc" />
             <YAxis stroke="#ccc" domain={[0, domain]} />
             <Tooltip />
             <Legend />

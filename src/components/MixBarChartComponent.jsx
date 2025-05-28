@@ -42,7 +42,7 @@ const MixBarChartComponent = ({ user, isMonthly, week }) => {
 
     fetchAllData();
   }, []);
-  console.log(allData);
+  // console.log(allData);
 
   const productivity = allData?.productivity?.allUserDummyData?.[user] || [];
   const islamic = allData?.islamic?.allUserDummyData?.[user] || [];
@@ -57,7 +57,7 @@ const MixBarChartComponent = ({ user, isMonthly, week }) => {
       sleep: sleep[index]?.score ?? 0,
     };
   });
-  console.log(combinedData);
+  // console.log(combinedData);
 
   function groupByWeeks(data) {
     const weeks = [];
@@ -97,7 +97,7 @@ const MixBarChartComponent = ({ user, isMonthly, week }) => {
           margin={{ top: 20, right: 30, left: 10, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#444" />
-          <XAxis dataKey="day" stroke="#ccc" />
+          <XAxis dataKey={isMonthly ? "date" : "day"} stroke="#ccc" />
           <YAxis stroke="#ccc" domain={[0, 12]} />
           <Tooltip />
           <Legend wrapperStyle={{ color: "#fff" }} />

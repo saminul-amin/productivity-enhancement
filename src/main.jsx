@@ -6,6 +6,7 @@ import Root from "./layout/Root.jsx";
 import Home from "./pages/Home.jsx";
 import ErrorPage from "./components/ErrorPage.jsx";
 import Statistics from "./pages/Statistics.jsx";
+import Leaderboard from "./pages/Leaderboard.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "statistics",
         element: <Statistics />,
+      },
+      {
+        path: "leaderboard",
+        element: <Leaderboard />,
       },
     ],
   },

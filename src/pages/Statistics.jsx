@@ -163,7 +163,7 @@ const Statistics = () => {
     week,
     month,
   });
-  console.log(topScorer);
+  // console.log(topScorer);
   const personalStats = getPersonalStats({
     userEntries: userData,
     view: monthButton ? "monthly" : "weekly",

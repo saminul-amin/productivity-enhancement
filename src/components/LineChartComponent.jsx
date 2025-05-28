@@ -9,7 +9,7 @@ import {
   YAxis,
 } from "recharts";
 
-export default function LineChartComponent({ data, domain }) {
+export default function LineChartComponent({ data, domain, isMonthly }) {
   return (
     <div>
       <div className="bg-gray-800 p-4 rounded-xl shadow mb-6 max-w-4xl mx-auto">
@@ -19,7 +19,7 @@ export default function LineChartComponent({ data, domain }) {
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="#555" />
-            <XAxis dataKey="day" stroke="#ccc" />
+            <XAxis dataKey={isMonthly ? "date" : "day"} stroke="#ccc" />
             <YAxis stroke="#ccc" domain={[0, domain]} />
             <Tooltip />
             <Legend />

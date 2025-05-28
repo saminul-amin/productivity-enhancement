@@ -20,11 +20,7 @@ const ChartSwitcher = ({
 
   if (category === "Productivity VS Sleep") {
     return (
-      <MixBarChartComponent
-        user={user}
-        isMonthly={isMonthly}
-        week={week}
-      />
+      <MixBarChartComponent user={user} isMonthly={isMonthly} week={week} />
     );
   }
 
@@ -34,8 +30,17 @@ const ChartSwitcher = ({
 
   return (
     <>
-      <LineChartComponent data={showData} domain={domain} />
-      <BarChartComponent data={showData} domain={domain} barSize={barSize} />
+      <LineChartComponent
+        data={showData}
+        domain={domain}
+        isMonthly={isMonthly}
+      />
+      <BarChartComponent
+        data={showData}
+        domain={domain}
+        barSize={barSize}
+        isMonthly={isMonthly}
+      />
     </>
   );
 };
