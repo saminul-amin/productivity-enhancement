@@ -4,6 +4,7 @@ import Loading from "../components/Loading";
 import ChartSwitcher from "../components/ChartSwitcher";
 import TopScorerCard from "../components/TopScorerCard";
 import PersonalStatCard from "../components/PersonalStatCard";
+import { Link } from "react-router-dom";
 
 function groupByWeeks(data) {
   const weeks = [];
@@ -249,9 +250,11 @@ const Statistics = () => {
               ))}
         </select>
 
-        <button className="bg-pink-700 hover:bg-pink-600 text-white font-semibold rounded-lg px-4 py-2 cursor-pointer border-2 border-gray-900 hover:border-pink-600 hover:font-bold transition">
-          Compare
-        </button>
+        <Link to="/compare">
+          <button className="bg-pink-700 hover:bg-pink-600 text-white font-semibold rounded-lg px-4 py-2 cursor-pointer border-2 border-gray-900 hover:border-pink-600 hover:font-bold transition">
+            Compare
+          </button>
+        </Link>
       </div>
       {/* Weekly / Monthly Toggle */}
       <div className="mb-16 flex gap-4 justify-center">

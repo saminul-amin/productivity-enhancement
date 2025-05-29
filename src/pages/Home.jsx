@@ -3,6 +3,37 @@ import { Crown, BarChart2, Users } from "lucide-react";
 import { useState } from "react";
 import UnderDevModal from "../components/UnderDevModal";
 import Noticeboard from "../components/Noticeboard";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/element/css/autoplay"
+
+const winners = [
+  {
+    name: "Sahabuddin",
+    image: "/members/sahab.jpg",
+    category: "Productivity",
+    streak: "🏆 1-time winner | Current streak: 1 week",
+  },
+  {
+    name: "Md. Saminul Amin",
+    image: "/members/samin.jpg",
+    category: "Islamic Studies",
+    streak: "🏆 1-time winner | Current streak: 1 week",
+  },
+  {
+    name: "Al Fuad Nur",
+    image: "/members/nur.jpg",
+    category: "Early Masjid",
+    streak: "🏆 1-time winner | Current streak: 1 week",
+  },
+  {
+    name: "Md. Saminul Amin",
+    image: "/members/samin.jpg",
+    category: "Sleep Hour",
+    streak: "🏆 1-time winner | Current streak: 1 week",
+  },
+];
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
@@ -22,23 +53,33 @@ const Home = () => {
 
       {/* Winner of the Week */}
       <section className="bg-gray-900 bg-gradient-to-b from-gray-800 shadow-xl rounded-2xl p-6 md:p-10 mb-12 max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold text-gray-300 flex items-center justify-center gap-2 mb-4">
+        <h2 className="text-2xl font-bold text-gray-300 flex items-center justify-center gap-2 mb-6">
           <Crown className="text-yellow-500" />
-          Winner of the Week
+          Winners of the Week
         </h2>
-        <div className="flex flex-col items-center gap-3">
-          <img
-            src="/images/current-winner.jpg"
-            alt="Weekly Winner"
-            className="w-24 h-24 rounded-full border-4 border-yellow-400 shadow-md"
-          />
-          <h3 className="text-xl font-semibold text-gray-300">
-            Md. Saminul Amin
-          </h3>
-          <p className="text-gray-300">
-            🏆 5-time winner | Current streak: 2 weeks
-          </p>
-        </div>
+        <Swiper
+          spaceBetween={30}
+          slidesPerView={1}
+          loop
+          autoplay={{ delay: 5000 }}
+          modules={[Autoplay]}
+        >
+          {winners.map((winner, index) => (
+            <SwiperSlide key={index}>
+              <div className="flex flex-col items-center gap-3">
+                <img
+                  src={winner.image}
+                  alt={winner.name}
+                  className="w-24 h-24 rounded-full border-4 border-yellow-400 shadow-md"
+                />
+                <h3 className="text-xl font-semibold text-gray-300">
+                  {winner.name}
+                </h3>
+                <p className="text-gray-300">{winner.streak}</p>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </section>
 
       {/* Sections Preview */}
@@ -79,7 +120,9 @@ const Home = () => {
             💩
           </div>
           <div>
-            <h4 className="text-lg text-left font-bold text-gray-300">Hall of Shame</h4>
+            <h4 className="text-lg text-left font-bold text-gray-300">
+              Hall of Shame
+            </h4>
             <p className="text-gray-400 text-sm">
               See the least active weeks (for fun & reflection)
             </p>
@@ -96,7 +139,9 @@ const Home = () => {
             💖
           </div>
           <div>
-            <h4 className="text-lg text-left font-bold text-gray-300">Donate</h4>
+            <h4 className="text-lg text-left font-bold text-gray-300">
+              Donate
+            </h4>
             <p className="text-gray-400 text-sm">
               Support our mission to boost productivity
             </p>

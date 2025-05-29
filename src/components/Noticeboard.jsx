@@ -1,6 +1,7 @@
 import React from "react";
 
 const notices = [
+  "[IMPORTANT] The selected persons for the reward will be announced after 1 working day of the month of May!",
   "[IMPORTANT] There will be rewards for the winners of each group for the month of May! You can suggest prizes in WhatsApp!",
 ];
 

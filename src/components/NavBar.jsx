@@ -38,6 +38,16 @@ const Navbar = () => {
           >
             Leaderboard
           </NavLink>
+          <NavLink
+            to="/compare"
+            className={({ isActive }) =>
+              isActive
+                ? "text-emerald-400 font-bold"
+                : "text-gray-300 hover:text-white"
+            }
+          >
+            Compare
+          </NavLink>
         </div>
       </div>
     </nav>

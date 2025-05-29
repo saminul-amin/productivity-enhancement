@@ -71,9 +71,15 @@ const crownIcons = ["👑", "🥈", "🥉"];
 const profileImages = {
   "Md. Saminul Amin": "/members/samin.jpg",
   "Wazih Abdullah": "/members/wazih.jpg",
-  Towheduzzaman: "/members/sahab.jpg",
+  Towheduzzaman: "/members/towhed.jpg",
   Sahabuddin: "/members/sahab.jpg",
   "Thowfiqur Bari Chowdhury": "/members/thowfiq.jpg",
+  "Siam Ahmed": "/members/siam.jpg",
+  "Masum Billah": "/members/masum.jpg",
+  "Al Fuad Nur": "/members/nur.jpg",
+  "Ahnaf Tahmid Rhythm": "/members/rdm.jpg",
+  "Zubayer Hossain Uday": "/members/uday.jpg",
+  "Md. Shakibul Alam": "/members/shakib.jpg",
 };
 
 const Leaderboard = () => {

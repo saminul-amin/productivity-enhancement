@@ -7,7 +7,7 @@ import Home from "./pages/Home.jsx";
 import ErrorPage from "./components/ErrorPage.jsx";
 import Statistics from "./pages/Statistics.jsx";
 import Leaderboard from "./pages/Leaderboard.jsx";
-import Tabulation from "./pages/Tabulation.jsx";
+import Compare from "./pages/Compare.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,8 +28,8 @@ const router = createBrowserRouter([
         element: <Leaderboard />,
       },
       {
-        path: "tabulation",
-        element: <Tabulation />,
+        path: "compare",
+        element: <Compare />,
       },
     ],
   },
