@@ -8,13 +8,21 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import type { ScoreEntry } from "@/types";
+
+interface BarChartComponentProps {
+  data: ScoreEntry[];
+  barSize: number;
+  domain: number | null;
+  isMonthly: boolean;
+}
 
 export default function BarChartComponent({
   data,
   barSize,
   domain,
   isMonthly,
-}) {
+}: BarChartComponentProps) {
   return (
     <div>
       <div className="bg-gray-800 p-4 rounded-xl shadow max-w-4xl mx-auto">
@@ -25,7 +33,7 @@ export default function BarChartComponent({
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="#555" />
             <XAxis dataKey={isMonthly ? "date" : "day"} stroke="#ccc" />
-            <YAxis stroke="#ccc" domain={[0, domain]} />
+            <YAxis stroke="#ccc" domain={[0, domain ?? 12]} />
             <Tooltip />
             <Legend />
             <Bar

@@ -1,12 +1,18 @@
-import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { AlertTriangle } from "lucide-react";
+"use client";
 
-const ErrorPage = () => {
-  const containerRef = useRef(null);
+import { useEffect, useRef } from "react";
+import Navbar from "./NavBar";
+
+interface StarFieldProps {
+  children: React.ReactNode;
+}
+
+export default function StarField({ children }: StarFieldProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const container = containerRef.current;
+    if (!container) return;
 
     const stars = Array.from({ length: 100 }, () => {
       const star = document.createElement("div");
@@ -14,7 +20,7 @@ const ErrorPage = () => {
       star.style.top = `${Math.random() * 100}%`;
       star.style.left = `${Math.random() * 100}%`;
       star.style.animationDuration = `${2 + Math.random() * 3}s`;
-      star.style.opacity = Math.random();
+      star.style.opacity = String(Math.random());
       container.appendChild(star);
       return star;
     });
@@ -26,22 +32,11 @@ const ErrorPage = () => {
 
   return (
     <div
-      className="w-full h-screen bg-gray-950 overflow-hidden relative"
+      className="w-full min-h-screen bg-gray-950 overflow-hidden relative"
       ref={containerRef}
     >
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white p-6 text-center">
-        <AlertTriangle className="w-16 h-16 text-yellow-400 mb-4" />
-        <h1 className="text-4xl font-bold mb-2">404 - Page Not Found</h1>
-        <p className="text-gray-300 mb-6">
-          Oops! The page you're looking for doesn't exist or has been moved.
-        </p>
-        <Link
-          to="/"
-          className="inline-block bg-white text-gray-900 font-semibold px-5 py-2 rounded-full shadow-md hover:bg-gray-300  transition"
-        >
-          Go Back Home
-        </Link>
-      </div>
+      <Navbar />
+      {children}
       <style>{`
         .star {
           position: absolute;
@@ -65,6 +60,4 @@ const ErrorPage = () => {
       `}</style>
     </div>
   );
-};
-
-export default ErrorPage;
+}

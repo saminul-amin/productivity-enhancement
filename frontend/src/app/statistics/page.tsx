@@ -1,21 +1,31 @@
+"use client";
+
 import { useEffect, useState } from "react";
+import Loading from "@/components/Loading";
+import ChartSwitcher from "@/components/ChartSwitcher";
+import TopScorerCard from "@/components/TopScorerCard";
+import PersonalStatCard from "@/components/PersonalStatCard";
+import Link from "next/link";
+import type { ScoreEntry, AllUserData, TopScorer } from "@/types";
 
-import Loading from "../components/Loading";
-import ChartSwitcher from "../components/ChartSwitcher";
-import TopScorerCard from "../components/TopScorerCard";
-import PersonalStatCard from "../components/PersonalStatCard";
-import { Link } from "react-router-dom";
-
-function groupByWeeks(data) {
-  const weeks = [];
+function groupByWeeks(data: ScoreEntry[]): ScoreEntry[][] {
+  const weeks: ScoreEntry[][] = [];
   for (let i = data.length; i >= 7; i -= 7) {
     weeks.push(data.slice(i - 7, i));
   }
   return weeks;
 }
 
-const getTopScorer = ({ data, category, view, week, month }) => {
-  const getScoreArray = (userEntries) => {
+interface GetTopScorerParams {
+  data: AllUserData;
+  category: string;
+  view: string;
+  week: string;
+  month: string;
+}
+
+const getTopScorer = ({ data, category, view, week, month }: GetTopScorerParams): TopScorer | null => {
+  const getScoreArray = (userEntries: ScoreEntry[]): ScoreEntry[] => {
     if (!Array.isArray(userEntries)) return [];
 
     if (view === "weekly") {
@@ -31,7 +41,7 @@ const getTopScorer = ({ data, category, view, week, month }) => {
     return [];
   };
 
-  const result = [];
+  const result: TopScorer[] = [];
 
   for (const user in data) {
     const rawEntries = data[user] || [];
@@ -51,17 +61,24 @@ const getTopScorer = ({ data, category, view, week, month }) => {
   }
 
   if (category.toLowerCase() === "sleep hour") {
-    result.sort((a, b) => a.total - b.total); // lower wins
+    result.sort((a, b) => a.total - b.total);
   } else {
-    result.sort((a, b) => b.total - a.total); // higher wins
+    result.sort((a, b) => b.total - a.total);
   }
   return result[0] || null;
 };
 
-const getPersonalStats = ({ userEntries, view, week, month }) => {
+interface GetPersonalStatsParams {
+  userEntries: ScoreEntry[];
+  view: string;
+  week: string;
+  month: string;
+}
+
+const getPersonalStats = ({ userEntries, view, week, month }: GetPersonalStatsParams) => {
   if (!userEntries) return { total: 0, avg: 0 };
 
-  let filtered = [];
+  let filtered: ScoreEntry[] = [];
 
   if (view === "weekly") {
     const weeks = groupByWeeks(userEntries);
@@ -87,11 +104,11 @@ const Statistics = () => {
   const [weekButton, setWeekButton] = useState(true);
   const [monthButton, setMonthButton] = useState(false);
 
-  const [fetchedData, setFetchedData] = useState([]);
-  const [showData, setShowData] = useState([]);
+  const [fetchedData, setFetchedData] = useState<AllUserData>({});
+  const [showData, setShowData] = useState<ScoreEntry[]>([]);
 
   const [barSize, setBarSize] = useState(50);
-  const [domain, setDomain] = useState(null);
+  const [domain, setDomain] = useState<number | null>(null);
 
   const categories = [
     "Productivity",
@@ -116,7 +133,7 @@ const Statistics = () => {
   const months = ["January", "February", "March", "April", "May"];
   const weeks = ["Week before last week", "Last Week", "Current Week"];
 
-  let url;
+  let url = "";
   if (category === "Productivity") {
     url = "/productivity";
   } else if (category === "Islamic Studies") {
@@ -145,14 +162,14 @@ const Statistics = () => {
           setDomain(12);
         }
       })
-      .catch((err) => {
+      .catch(() => {
         console.error("Error Fetching Data!");
-        setFetchedData([]);
+        setFetchedData({});
       })
       .finally(() => {
         setIsLoading(false);
       });
-  }, [category]);
+  }, [category, url]);
 
   const userData = fetchedData?.[user] ?? [];
   const topScorer = getTopScorer({
@@ -162,7 +179,6 @@ const Statistics = () => {
     week,
     month,
   });
-  // console.log(topScorer);
   const personalStats = getPersonalStats({
     userEntries: userData,
     view: monthButton ? "monthly" : "weekly",
@@ -178,7 +194,7 @@ const Statistics = () => {
 
     const weeklyChunks = groupByWeeks(userData);
 
-    let newWeeklyData = [];
+    let newWeeklyData: ScoreEntry[] = [];
     if (week === "Current Week") {
       newWeeklyData = weeklyChunks[0] || [];
     } else if (week === "Last Week") {
@@ -197,6 +213,7 @@ const Statistics = () => {
 
     setBarSize(monthButton ? 30 : 50);
   }, [monthButton, week, month, userData, showData]);
+
   if (isLoading) {
     return <Loading />;
   }
@@ -250,7 +267,7 @@ const Statistics = () => {
               ))}
         </select>
 
-        <Link to="/compare">
+        <Link href="/compare">
           <button className="bg-pink-700 hover:bg-pink-600 text-white font-semibold rounded-lg px-4 py-2 cursor-pointer border-2 border-gray-900 hover:border-pink-600 hover:font-bold transition">
             Compare
           </button>

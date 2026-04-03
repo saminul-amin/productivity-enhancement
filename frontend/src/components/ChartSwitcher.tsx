@@ -3,6 +3,18 @@ import LineChartComponent from "./LineChartComponent";
 import BarChartComponent from "./BarChartComponent";
 import Loading from "./Loading";
 import NoData from "./NoData";
+import type { ScoreEntry } from "@/types";
+
+interface ChartSwitcherProps {
+  isLoading: boolean;
+  category: string;
+  showData: ScoreEntry[];
+  user: string;
+  domain: number | null;
+  barSize: number;
+  isMonthly: boolean;
+  week: string;
+}
 
 const ChartSwitcher = ({
   isLoading,
@@ -13,7 +25,7 @@ const ChartSwitcher = ({
   barSize,
   isMonthly,
   week,
-}) => {
+}: ChartSwitcherProps) => {
   if (isLoading) {
     return <Loading />;
   }

@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import {
   LineChart,
@@ -11,9 +13,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { motion } from "framer-motion";
-import Loading from "../components/Loading";
+import Loading from "@/components/Loading";
+import type { AllUserData, ScoreEntry } from "@/types";
 
-const allUsernames = [
+const allUsernames: string[] = [
   "Md. Saminul Amin",
   "Wazih Abdullah",
   "Towheduzzaman",
@@ -30,18 +33,18 @@ const allUsernames = [
 const Compare = () => {
   const [user1, setUser1] = useState("");
   const [user2, setUser2] = useState("");
-  const [suggestions1, setSuggestions1] = useState([]);
-  const [suggestions2, setSuggestions2] = useState([]);
+  const [suggestions1, setSuggestions1] = useState<string[]>([]);
+  const [suggestions2, setSuggestions2] = useState<string[]>([]);
   const [highlightedIndex1, setHighlightedIndex1] = useState(-1);
   const [highlightedIndex2, setHighlightedIndex2] = useState(-1);
   const [category, setCategory] = useState("Productivity");
   const [view, setView] = useState("weekly");
   const [weekOption, setWeekOption] = useState("current");
   const [monthOption, setMonthOption] = useState("May");
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState<AllUserData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  let url;
+  let url = "";
   if (category === "Productivity") {
     url = "/productivity";
   } else if (category === "Islamic Studies") {
@@ -60,27 +63,27 @@ const Compare = () => {
         setUserData(data.allUserDummyData);
         setLoading(false);
       });
-  }, [category, user1, user2]);
+  }, [category, user1, user2, url]);
 
-  const getSuggestions = (input) => {
+  const getSuggestions = (input: string): string[] => {
     return allUsernames.filter((name) =>
       name.toLowerCase().includes(input.toLowerCase())
     );
   };
 
-  const handleInput1 = (e) => {
+  const handleInput1 = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser1(e.target.value);
     setSuggestions1(getSuggestions(e.target.value));
     setHighlightedIndex1(-1);
   };
 
-  const handleInput2 = (e) => {
+  const handleInput2 = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser2(e.target.value);
     setSuggestions2(getSuggestions(e.target.value));
     setHighlightedIndex2(-1);
   };
 
-  const handleKeyDown1 = (e) => {
+  const handleKeyDown1 = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "ArrowDown") {
       setHighlightedIndex1((prev) =>
         Math.min(prev + 1, suggestions1.length - 1)
@@ -98,7 +101,7 @@ const Compare = () => {
     }
   };
 
-  const handleKeyDown2 = (e) => {
+  const handleKeyDown2 = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "ArrowDown") {
       setHighlightedIndex2((prev) =>
         Math.min(prev + 1, suggestions2.length - 1)
@@ -119,16 +122,16 @@ const Compare = () => {
   const isValid = userData && userData[user1] && userData[user2];
 
   const getFilteredData = () => {
-    if (!isValid) return [];
+    if (!isValid || !userData) return [];
 
-    const full1 = userData[user1] || [];
-    const full2 = userData[user2] || [];
+    const full1: ScoreEntry[] = userData[user1] || [];
+    const full2: ScoreEntry[] = userData[user2] || [];
 
     let data1 = full1;
     let data2 = full2;
 
     if (view === "weekly") {
-      const chunks = (arr) => [
+      const chunks = (arr: ScoreEntry[]) => [
         arr.slice(-7),
         arr.slice(-14, -7),
         arr.slice(-21, -14),
@@ -267,7 +270,6 @@ const Compare = () => {
                 className="bg-gray-800 text-white p-2 rounded border border-gray-700"
               >
                 <option value="May">May</option>
-                {/* Add more months as needed */}
               </select>
             )}
           </div>

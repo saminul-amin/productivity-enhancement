@@ -1,9 +1,16 @@
+"use client";
+
 import { useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const UnderDevModal = ({ isOpen, onClose }) => {
+interface UnderDevModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const UnderDevModal = ({ isOpen, onClose }: UnderDevModalProps) => {
   const escHandler = useCallback(
-    (e) => {
+    (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     },
     [onClose]
@@ -29,7 +36,7 @@ const UnderDevModal = ({ isOpen, onClose }) => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 50, opacity: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
+            onClick={(e) => e.stopPropagation()}
             className="bg-gray-800 text-white rounded-xl p-6 max-w-sm w-full shadow-xl text-center relative"
           >
             <h2 className="text-2xl font-bold mb-2 text-pink-400">

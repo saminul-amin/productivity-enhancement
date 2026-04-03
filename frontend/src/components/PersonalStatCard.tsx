@@ -1,5 +1,11 @@
-const PersonalStatCard = ({ total, avg, category }) => {
-  if (total === 0 && avg === 0) return null; // optional: hide if nothing to show
+interface PersonalStatCardProps {
+  total: number;
+  avg: number | string;
+  category: string;
+}
+
+const PersonalStatCard = ({ total, avg, category }: PersonalStatCardProps) => {
+  if (total === 0 && avg === 0) return null;
 
   return (
     <div className="bg-gray-800 text-gray-300 p-3 rounded-xl mb-6 max-w-2xl mx-auto text-sm md:text-base">

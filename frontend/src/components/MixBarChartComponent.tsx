@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import {
   BarChart,
@@ -9,19 +11,36 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
+import type { CombinedEntry } from "@/types";
 
-const MixBarChartComponent = ({ user, isMonthly, week }) => {
-  const [allData, setAllData] = useState({});
-  const [showData, setShowData] = useState([]);
+interface MixBarChartComponentProps {
+  user: string;
+  isMonthly: boolean;
+  week: string;
+}
+
+interface FetchedCategoryData {
+  allUserDummyData: Record<string, { month: string; date: string; day: string; score: number }[]>;
+}
+
+interface AllFetchedData {
+  productivity: FetchedCategoryData | null;
+  islamic: FetchedCategoryData | null;
+  sleep: FetchedCategoryData | null;
+}
+
+const MixBarChartComponent = ({ user, isMonthly, week }: MixBarChartComponentProps) => {
+  const [allData, setAllData] = useState<AllFetchedData>({ productivity: null, islamic: null, sleep: null });
+  const [showData, setShowData] = useState<CombinedEntry[]>([]);
 
   useEffect(() => {
-    const safeFetch = async (url) => {
+    const safeFetch = async (url: string): Promise<FetchedCategoryData | null> => {
       try {
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
         return await res.json();
       } catch (err) {
-        console.error(`Error fetching ${url}:`, err.message);
+        console.error(`Error fetching ${url}:`, (err as Error).message);
         return null;
       }
     };
@@ -42,13 +61,12 @@ const MixBarChartComponent = ({ user, isMonthly, week }) => {
 
     fetchAllData();
   }, []);
-  // console.log(allData);
 
   const productivity = allData?.productivity?.allUserDummyData?.[user] || [];
   const islamic = allData?.islamic?.allUserDummyData?.[user] || [];
   const sleep = allData?.sleep?.allUserDummyData?.[user] || [];
 
-  const combinedData = productivity.map((entry, index) => {
+  const combinedData: CombinedEntry[] = productivity.map((entry, index) => {
     const { score, ...rest } = entry;
     return {
       ...rest,
@@ -57,10 +75,9 @@ const MixBarChartComponent = ({ user, isMonthly, week }) => {
       sleep: sleep[index]?.score ?? 0,
     };
   });
-  // console.log(combinedData);
 
-  function groupByWeeks(data) {
-    const weeks = [];
+  function groupByWeeks(data: CombinedEntry[]): CombinedEntry[][] {
+    const weeks: CombinedEntry[][] = [];
     for (let i = data.length; i >= 7; i -= 7) {
       weeks.push(data.slice(i - 7, i));
     }
@@ -68,7 +85,7 @@ const MixBarChartComponent = ({ user, isMonthly, week }) => {
   }
 
   const weeklyChunks = groupByWeeks(combinedData);
-  let weeklyData = [];
+  let weeklyData: CombinedEntry[] = [];
   if (week === "Current Week") {
     weeklyData = weeklyChunks[0];
   } else if (week === "Last Week") {
@@ -77,7 +94,7 @@ const MixBarChartComponent = ({ user, isMonthly, week }) => {
     weeklyData = weeklyChunks[2];
   }
 
-  let monthlyData = combinedData.filter((entry) => entry.month === "May");
+  const monthlyData = combinedData.filter((entry) => entry.month === "May");
 
   useEffect(() => {
     const newData = isMonthly ? monthlyData : weeklyData;

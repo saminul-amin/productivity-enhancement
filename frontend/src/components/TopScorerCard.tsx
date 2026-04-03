@@ -1,4 +1,10 @@
-const TopScorerCard = ({ scorer }) => {
+import { TopScorer } from "@/types";
+
+interface TopScorerCardProps {
+  scorer: TopScorer;
+}
+
+const TopScorerCard = ({ scorer }: TopScorerCardProps) => {
   if (!scorer) return null;
 
   return (
@@ -12,7 +18,7 @@ const TopScorerCard = ({ scorer }) => {
       <p className="mt-1">
         Total Score: <span className="text-yellow-400 font-medium">{scorer.total}</span>
       </p>
-      <p className="mt-3 text-green-400 italic">Keep up the momentum, <span className="font-bold">{scorer.name.split()[0]}</span>! 🌟</p>
+      <p className="mt-3 text-green-400 italic">Keep up the momentum, <span className="font-bold">{scorer.name.split(" ")[0]}</span>! 🌟</p>
     </div>
   );
 };

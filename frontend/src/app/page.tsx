@@ -1,14 +1,23 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { Crown, BarChart2, Users } from "lucide-react";
 import { useState } from "react";
-import UnderDevModal from "../components/UnderDevModal";
-import Noticeboard from "../components/Noticeboard";
+import UnderDevModal from "@/components/UnderDevModal";
+import Noticeboard from "@/components/Noticeboard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
-import "swiper/element/css/autoplay"
+import "swiper/element/css/autoplay";
 
-const winners = [
+interface Winner {
+  name: string;
+  image: string;
+  category: string;
+  streak: string;
+}
+
+const winners: Winner[] = [
   {
     name: "Sahabuddin",
     image: "/members/sahab.jpg",
@@ -85,7 +94,7 @@ const Home = () => {
       {/* Sections Preview */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
         <Link
-          to="/leaderboard"
+          href="/leaderboard"
           className="bg-gray-900 bg-gradient-to-b from-gray-800 hover:bg-gray-700 transition shadow-md rounded-2xl p-6 flex items-center gap-4"
         >
           <BarChart2 className="w-8 h-8 text-indigo-600" />
@@ -98,7 +107,7 @@ const Home = () => {
         </Link>
 
         <Link
-          to="/statistics"
+          href="/statistics"
           className="bg-gray-900 bg-gradient-to-b from-gray-800 hover:bg-gray-700 transition shadow-md rounded-2xl p-6 flex items-center gap-4"
         >
           <Users className="w-8 h-8 text-green-600" />
@@ -112,7 +121,6 @@ const Home = () => {
 
         {/* Hall of Shame Card */}
         <button
-          // to="/hall-of-shame"
           onClick={() => setShowModal(true)}
           className="bg-gray-900 bg-gradient-to-b from-gray-800 hover:bg-gray-700 transition shadow-md rounded-2xl p-6 flex items-center gap-4 cursor-pointer"
         >
@@ -131,7 +139,6 @@ const Home = () => {
 
         {/* Donate Card */}
         <button
-          // to="/donate"
           onClick={() => setShowModal(true)}
           className="bg-gray-900 bg-gradient-to-b from-gray-800 hover:bg-gray-700 transition shadow-md rounded-2xl p-6 flex items-center gap-4 cursor-pointer"
         >

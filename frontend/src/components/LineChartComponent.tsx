@@ -8,8 +8,15 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import type { ScoreEntry } from "@/types";
 
-export default function LineChartComponent({ data, domain, isMonthly }) {
+interface LineChartComponentProps {
+  data: ScoreEntry[];
+  domain: number | null;
+  isMonthly: boolean;
+}
+
+export default function LineChartComponent({ data, domain, isMonthly }: LineChartComponentProps) {
   return (
     <div>
       <div className="bg-gray-800 p-4 rounded-xl shadow mb-6 max-w-4xl mx-auto">
@@ -20,7 +27,7 @@ export default function LineChartComponent({ data, domain, isMonthly }) {
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="#555" />
             <XAxis dataKey={isMonthly ? "date" : "day"} stroke="#ccc" />
-            <YAxis stroke="#ccc" domain={[0, domain]} />
+            <YAxis stroke="#ccc" domain={[0, domain ?? 12]} />
             <Tooltip />
             <Legend />
             <Line

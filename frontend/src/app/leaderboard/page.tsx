@@ -1,13 +1,23 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import { motion, AnimatePresence } from "framer-motion";
-import Contributors from "../components/Contributors";
-import Loading from "../components/Loading";
-import { Link, useNavigate } from "react-router-dom";
-import Tabulation from "./Tabulation";
+import Contributors from "@/components/Contributors";
+import Loading from "@/components/Loading";
+import Tabulation from "@/components/Tabulation";
+import type { ScoreEntry, AllUserData, LeaderboardEntry } from "@/types";
 
-const generateLeaderboard = ({ data, view, week, month, category }) => {
-  const getScoreArray = (userEntries) => {
+interface GenerateLeaderboardParams {
+  data: AllUserData;
+  view: string;
+  week: string;
+  month: string;
+  category: string;
+}
+
+const generateLeaderboard = ({ data, view, week, month, category }: GenerateLeaderboardParams): LeaderboardEntry[] => {
+  const getScoreArray = (userEntries: ScoreEntry[]): ScoreEntry[] => {
     if (!Array.isArray(userEntries)) return [];
 
     if (view === "weekly") {
@@ -23,7 +33,7 @@ const generateLeaderboard = ({ data, view, week, month, category }) => {
     return [];
   };
 
-  const result = [];
+  const result: Omit<LeaderboardEntry, "rank">[] = [];
 
   for (const user in data) {
     const rawEntries = data[user] || [];
@@ -35,10 +45,10 @@ const generateLeaderboard = ({ data, view, week, month, category }) => {
     const avg = (total / filtered.length).toFixed(2);
     const highest = filtered.reduce((a, b) => (a.score > b.score ? a : b), {
       score: 0,
-    });
+    } as ScoreEntry);
     const lowest = filtered.reduce((a, b) => (a.score < b.score ? a : b), {
       score: 10,
-    });
+    } as ScoreEntry);
 
     result.push({
       name: user,
@@ -51,16 +61,16 @@ const generateLeaderboard = ({ data, view, week, month, category }) => {
   }
 
   if (category.toLowerCase() === "sleep hour") {
-    result.sort((a, b) => a.total - b.total); // Lower is better
+    result.sort((a, b) => a.total - b.total);
   } else {
-    result.sort((a, b) => b.total - a.total); // Higher is better
+    result.sort((a, b) => b.total - a.total);
   }
 
   return result.map((entry, index) => ({ ...entry, rank: index + 1 }));
 };
 
-const groupByWeeks = (entries) => {
-  const chunks = [];
+const groupByWeeks = (entries: ScoreEntry[]): ScoreEntry[][] => {
+  const chunks: ScoreEntry[][] = [];
   for (let i = entries.length; i >= 7; i -= 7) {
     chunks.unshift(entries.slice(i - 7, i));
   }
@@ -68,7 +78,7 @@ const groupByWeeks = (entries) => {
 };
 
 const crownIcons = ["👑", "🥈", "🥉"];
-const profileImages = {
+const profileImages: Record<string, string> = {
   "Md. Saminul Amin": "/members/samin.jpg",
   "Wazih Abdullah": "/members/wazih.jpg",
   Towheduzzaman: "/members/towhed.jpg",
@@ -83,7 +93,7 @@ const profileImages = {
 };
 
 const Leaderboard = () => {
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState<AllUserData | null>(null);
   const [category, setCategory] = useState("Productivity");
   const [view, setView] = useState("weekly");
   const [week, setWeek] = useState("Current Week");
@@ -91,7 +101,7 @@ const Leaderboard = () => {
   const [celebrate, setCelebrate] = useState(false);
   const [showTable, setShowTable] = useState(false);
 
-  let url;
+  let url = "";
   if (category === "Productivity") {
     url = "/productivity";
   } else if (category === "Islamic Studies") {
@@ -109,7 +119,7 @@ const Leaderboard = () => {
       .then((data) => {
         setUserData(data.allUserDummyData);
       });
-  }, [category]);
+  }, [category, url]);
 
   const leaderboard = userData
     ? generateLeaderboard({
@@ -124,9 +134,9 @@ const Leaderboard = () => {
   const topThree = leaderboard.slice(0, 3);
 
   const rankColors = [
-    "bg-yellow-400 text-gray-900", // 🥇 Gold
-    "bg-gray-300 text-gray-900", // 🥈 Silver
-    "bg-amber-700 text-white", // 🥉 Bronze
+    "bg-yellow-400 text-gray-900",
+    "bg-gray-300 text-gray-900",
+    "bg-amber-700 text-white",
   ];
 
   if (!userData) {

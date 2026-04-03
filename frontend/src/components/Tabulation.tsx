@@ -1,4 +1,11 @@
-const Tabulation = ({ data, title = "Tabulation Sheet" }) => {
+import { LeaderboardEntry } from "@/types";
+
+interface TabulationProps {
+  data: LeaderboardEntry[];
+  title?: string;
+}
+
+const Tabulation = ({ data, title = "Tabulation Sheet" }: TabulationProps) => {
   return (
     <div className="bg-gray-900 text-white py-10 px-4 mt-0">
       <h1 className="text-3xl font-bold text-center text-pink-400 mb-6">
@@ -43,8 +50,8 @@ const Tabulation = ({ data, title = "Tabulation Sheet" }) => {
               ))
             ) : (
               <tr>
-                <td colSpan="7" className="p-4 text-center text-red-400">
-                  ⚠️ No data available for {month}.
+                <td colSpan={7} className="p-4 text-center text-red-400">
+                  ⚠️ No data available.
                 </td>
               </tr>
             )}

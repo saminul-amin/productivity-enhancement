@@ -1,4 +1,13 @@
-const contributorRoles = [
+interface ContributorRole {
+  role: string;
+  emoji: string;
+  assignedTo: string | null;
+  description: string;
+  image: string;
+  status: "active" | "vacant" | "rotating";
+}
+
+const contributorRoles: ContributorRole[] = [
   {
     role: "Full Stack Developer",
     emoji: "🧑‍💻",
@@ -69,19 +78,19 @@ const Contributors = () => {
             <div className="text-sm italic text-gray-400 mb-1 flex gap-3 items-center justify-center">
               <p>
                 {role.assignedTo ? (
-                  <p className="px-12">
+                  <span className="px-12">
                     Assigned to:{" "}
                     <span className="font-bold">{role.assignedTo}</span>
-                  </p>
+                  </span>
                 ) : (
                   "Not assigned yet"
                 )}
               </p>
               <p>
                 {role.status === "vacant" && (
-                  <p className="mt-auto bg-pink-500 hover:bg-pink-600 text-white px-2 py-0 rounded-full text-sm">
+                  <span className="mt-auto bg-pink-500 hover:bg-pink-600 text-white px-2 py-0 rounded-full text-sm">
                     Vacancy Here
-                  </p>
+                  </span>
                 )}
               </p>
             </div>
